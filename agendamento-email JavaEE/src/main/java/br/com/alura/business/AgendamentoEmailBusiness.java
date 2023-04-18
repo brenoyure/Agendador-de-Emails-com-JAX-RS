@@ -1,10 +1,15 @@
 package br.com.alura.business;
 
+import static javax.ejb.TransactionManagementType.CONTAINER;
+
 import java.util.List;
 import java.util.Optional;
 
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+import javax.ejb.TransactionManagement;
 import javax.inject.Inject;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -20,6 +25,7 @@ import br.com.alura.interception.Logger;
 
 @Stateless
 @Logger
+@TransactionManagement(CONTAINER)
 public class AgendamentoEmailBusiness {
 
 	@Inject
@@ -48,8 +54,9 @@ public class AgendamentoEmailBusiness {
 		return agendamentoEmailDao.listarAgendamentosNaoEnviados();
 	}
 
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void salvarAgendamentoEmail(@Valid AgendamentoEmail agendamentoEmail) throws BusinessException {
-		
+
 		if (!agendamentoEmailDao
 				.listarAgendamentoEmailsPorEmail(agendamentoEmail.getEmail())
 				.isEmpty()) {
@@ -58,6 +65,7 @@ public class AgendamentoEmailBusiness {
 
 		agendamentoEmail.setEnviado(false);
 		agendamentoEmailDao.salvarAgendamentoEmail(agendamentoEmail);
+
 	}
 
 	public void enviarEmail(AgendamentoEmail agendamentoEmail) {

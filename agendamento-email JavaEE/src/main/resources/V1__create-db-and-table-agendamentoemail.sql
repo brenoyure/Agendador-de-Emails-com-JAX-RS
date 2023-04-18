@@ -1,6 +1,6 @@
-CREATE DATABASE IF NOT EXISTS agendamentoemailbd;
+CREATE DATABASE IF NOT EXISTS agendamentobd;
 
-USE agendamentoemailbd;
+USE agendamentobd;
 
 CREATE TABLE IF NOT EXISTS agendamentoemail (
 	id BIGINT AUTO_INCREMENT PRIMARY KEY,
