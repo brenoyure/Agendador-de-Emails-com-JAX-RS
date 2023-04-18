@@ -24,7 +24,11 @@ public class AgendamentoEmailDao {
 	public void salvarAgendamentoEmail(AgendamentoEmail agendamentoEmail) {
 		entityManager.persist(agendamentoEmail);
 	}
-	
+
+	public void atualizarAgendamentoEmail(AgendamentoEmail agendamentoEmail) {
+		entityManager.merge(agendamentoEmail);
+	}
+
 	public List<AgendamentoEmail> listarAgendamentoEmailsPorEmail(String email) {
 		TypedQuery<AgendamentoEmail> query = entityManager
 				.createQuery("SELECT a FROM AgendamentoEmail a WHERE a.email = :email AND a.enviado = false", AgendamentoEmail.class);
