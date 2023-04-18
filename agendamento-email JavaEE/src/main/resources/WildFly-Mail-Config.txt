@@ -1,0 +1,8 @@
+# Configurando o subsystem de Session para Emails do WildFly
+/subsystem=mail/mail-session=agendamentoMailSession:add(jndi-name=java:jboss/mail/AgendamentoMailSession)
+
+# Configurando o socket binding para a ferramenta Mail Trap
+/socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=my-smtp-binding:add(host=smtp.mailtrap.io, port=2525)
+
+# Configurando o server SMTP com usuário e senha
+/subsystem=mail/mail-session=agendamentoMailSession/server=smtp:add(outbound-socket-binding-ref= my-smtp-binding, username=PEGAR_NO_SITE_DA_MAIL_TRAP, password=PEGAR_NO_SITE_DA_MAIL_TRAP, tls=true)

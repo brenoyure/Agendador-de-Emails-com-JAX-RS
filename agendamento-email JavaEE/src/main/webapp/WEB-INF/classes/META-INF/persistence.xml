@@ -5,9 +5,9 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
           http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
 	version="2.2">
-	
+
 	<persistence-unit name="agendamentoemailbd">
 		<jta-data-source>java:jboss/datasources/AgendamentoDS</jta-data-source>
 	</persistence-unit>
-	
+
 </persistence>
