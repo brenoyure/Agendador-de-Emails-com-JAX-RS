@@ -11,24 +11,23 @@ import br.com.alura.entidade.AgendamentoEmail;
 import br.com.alura.servico.AgendamentoEmailServico;
 
 @MessageDriven(activationConfig = {
-		@ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "java:/jms/queue/EmailQueue"),
-		@ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue") })
-
+		@ActivationConfigProperty(propertyName = "destinationType"	, propertyValue = "javax.jms.Queue"),
+		@ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "java:/jms/queue/EmailQueue") })
 public class AgendamentoEmailMDB implements MessageListener {
 
 	@Inject
-	private AgendamentoEmailServico agendamentoEmailServico;
+	private AgendamentoEmailServico servico;
 
 	@Override
 	public void onMessage(Message message) {
-
+		
 		try {
-			AgendamentoEmail agendamentoEmail = message.getBody(AgendamentoEmail.class);
-			agendamentoEmailServico.enviar(agendamentoEmail);
-		} catch (JMSException e) {
-			throw new RuntimeException(e);
-		}
+			servico.enviar(message.getBody(AgendamentoEmail.class));
 
+		} catch (JMSException e) {
+			e.printStackTrace();
+
+		}
 	}
 
 }
